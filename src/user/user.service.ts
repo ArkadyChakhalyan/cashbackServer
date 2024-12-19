@@ -18,7 +18,7 @@ export class UserService {
     }
 
     async findUserByEmail(email: string): Promise<User> {
-        return this.userModel.findOne({ where: { email } }).exec();
+        return this.userModel.findOne({ email }).exec();
     }
 
     async create(user: Partial<User>): Promise<User> {

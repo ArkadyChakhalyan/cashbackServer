@@ -15,7 +15,7 @@ export class UserController {
         //@ts-ignore
         const userId = req.user?.userId;
         if (!userId) {
-            return { error: 'CryptoDonations not authenticated' };
+            return { error: 'Not authenticated' };
         }
         const user = await this.userService.findById(userId);
         return res.json(getTransformedUser(user));
@@ -30,7 +30,7 @@ export class UserController {
         //@ts-ignore
         const userId = req.user?.userId;
         if (!userId) {
-            return { error: 'CryptoDonations not authenticated' };
+            return { error: 'Not authenticated' };
         }
         const user = await this.userService.update(userId, updateUserDto);
         return res.json(getTransformedUser(user));
@@ -41,7 +41,7 @@ export class UserController {
         //@ts-ignore
         const userId = req.user?.userId;
         if (!userId) {
-            return { error: 'CryptoDonations not authenticated' };
+            return { error: 'Not authenticated' };
         }
         return await this.userService.delete(userId);
     }

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from '../user/schemas/user.schema';
@@ -15,7 +15,7 @@ export class AuthService {
     ): Promise<any> {
         try {
             if (!user) {
-                throw new Error('CryptoDonations not found after Google loginPage');
+                throw new Error('Authentication failed');
             }
             const jwtToken = this.jwtService.sign({ userId: user._id });
             const script = `
@@ -28,7 +28,6 @@ export class AuthService {
             res.type('text/html');
             return res.send(script);
         } catch (error) {
-            Logger.error('Google callback failed:', error.message, error.stack);
             return res.status(500).send('Internal Server Error');
         }
     }

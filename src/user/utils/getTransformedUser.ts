@@ -1,5 +1,5 @@
 import { User } from '../schemas/user.schema';
-import { IUser } from 'cashback-check-types/user';
+import { IUser } from 'cashback-check-types';
 
 export function getTransformedUser(user: User): IUser {
     const { _id, email, name, picture, cashbacksView } = user;

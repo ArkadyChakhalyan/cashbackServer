@@ -9,7 +9,7 @@ export class AuthService {
         private jwtService: JwtService,
     ) {}
 
-    async googleLogin(
+    async login(
         user: User,
         res: Response,
     ): Promise<any> {

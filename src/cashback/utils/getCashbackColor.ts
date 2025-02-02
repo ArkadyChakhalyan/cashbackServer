@@ -1,4 +1,4 @@
-import { ECashbackColor, ECashbackIcon } from 'cashback-check-types/cashback';
+import { ECashbackColor, ECashbackIcon } from 'cashback-check-types';
 import {
     ALL_COLORS,
     BLUE_ICONS,

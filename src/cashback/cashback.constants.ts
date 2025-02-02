@@ -1,4 +1,4 @@
-import { ECashbackColor, ECashbackIcon } from 'cashback-check-types/cashback';
+import { ECashbackColor, ECashbackIcon } from 'cashback-check-types';
 
 export const NAMES_COMMON = [
     'все',
@@ -13,7 +13,7 @@ export const NAMES_ART = [
 
 export const NAMES_UTILS = [
     'комунал',
-    'ку',
+    'жкх',
 ];
 
 export const NAMES_CINEMA = [
@@ -35,6 +35,7 @@ export const NAMES_GAS = [
     'бензин',
     'азс',
     'заправ',
+    'топлив',
 ];
 
 export const NAMES_TAXI = [
@@ -44,11 +45,13 @@ export const NAMES_TAXI = [
 export const NAMES_GROCERY = [
     'супермаркет',
     'продукт',
+    'лавка',
 ];
 
 export const NAMES_RESTAURANT = [
     'ресторан',
     'кафе',
+    'яндекс еда',
 ];
 
 export const NAMES_FAST_FOOD = [
@@ -62,10 +65,13 @@ export const NAMES_CARSHARING = [
 
 export const NAMES_PHARMACY = [
     'аптек',
+    'медиц',
+    'здоров',
 ];
 
 export const NAMES_CLOTHES = [
     'одежд',
+    'обув',
 ];
 
 export const NAMES_FLOWERS = [
@@ -103,6 +109,14 @@ export const NAMES_BEAUTY = [
 
 export const NAMES_KIDS = [
     'детск',
+];
+
+export const NAMES_ANIMALS = [
+    'живот',
+];
+
+export const NAMES_ACCESSORIES = [
+    'аксессуар',
 ];
 
 export const BLUE_ICONS = [
@@ -149,11 +163,13 @@ export const DARK_GREEN_ICONS = [
 export const PURPLE_ICONS = [
     ECashbackIcon.FURNITURE,
     ECashbackIcon.GAS,
+    ECashbackIcon.ACCESSORIES,
 ];
 
 export const DARK_PURPLE_ICONS = [
     ECashbackIcon.ART,
     ECashbackIcon.CINEMA,
+    ECashbackIcon.ANIMALS,
 ];
 
 export const ALL_COLORS = [

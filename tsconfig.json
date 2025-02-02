@@ -21,8 +21,5 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "suppressExcessPropertyErrors": false,
-    "paths": {
-      "cashback-check-types/*": ["node_modules/cashback-check-types/dist/*"]
-    }
   }
 }

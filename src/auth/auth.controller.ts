@@ -17,7 +17,7 @@ export class AuthController {
     @Get('google/redirect')
     @UseGuards(GoogleAuthGuard)
     googleLoginRedirect(@Req() req: Request, @Res() res: Response) {
-        return this.authService.googleLogin(req.user as User, res);
+        return this.authService.login(req.user as User, res);
     }
 
     @Get('yandex')
@@ -27,6 +27,6 @@ export class AuthController {
     @Get('yandex/redirect')
     @UseGuards(YandexAuthGuard)
     yandexLoginRedirect(@Req() req: Request, @Res() res: Response) {
-        return this.authService.googleLogin(req.user as User, res);
+        return this.authService.login(req.user as User, res);
     }
 }

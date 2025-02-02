@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22-alpine
 
 WORKDIR /server
 
@@ -13,4 +13,3 @@ RUN yarn install
 COPY . .
 
 CMD ["yarn", "start:dev"]
-

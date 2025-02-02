@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - 80:3001
+      - 81:3001
     environment:
       DATABASE_URL: ${DATABASE_URL}
       PORT: ${PORT}
@@ -22,7 +22,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME:-root}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD:-password}
-      - MONGO_INITDB_DATABASE=${DB_NAME:-books_database}
+      - MONGO_INITDB_DATABASE=${DB_NAME:-cashback_database}
   mongo-express:
     image: mongo-express
     restart: always

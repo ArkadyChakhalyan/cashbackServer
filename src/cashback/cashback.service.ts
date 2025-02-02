@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cashback } from './schemas/cashback.schema';
 import { CreateCashbackDto } from './createCashbackDto';
-import { TUserId } from 'cashback-check-types/user';
+import { TUserId } from 'cashback-check-types';
 import { getCashbackIcon } from './utils/getCashbackIcon';
 import { getCashbackColor } from './utils/getCashbackColor';
 

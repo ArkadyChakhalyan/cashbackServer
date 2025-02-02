@@ -1,5 +1,5 @@
 import { Cashback } from '../schemas/cashback.schema';
-import { ICashback } from 'cashback-check-types/cashback';
+import { ICashback } from 'cashback-check-types';
 
 export function getTransformedCashback(cashback: Cashback): ICashback {
     const { _id,

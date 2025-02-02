@@ -4,7 +4,7 @@ import { User } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserDto } from './updateUserDto';
 import { CashbackService } from '../cashback/cashback.service';
-import { TUserId } from 'cashback-check-types/user';
+import { TUserId } from 'cashback-check-types';
 
 @Injectable()
 export class UserService {

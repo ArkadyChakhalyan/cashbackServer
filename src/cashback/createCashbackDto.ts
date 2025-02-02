@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from 'class-validator';
-import { EBank, ECashbackColor } from 'cashback-check-types/cashback';
-import { TUserId } from 'cashback-check-types/user';
+import { EBank, ECashbackColor } from 'cashback-check-types';
+import { TUserId } from 'cashback-check-types';
 import { Prop } from '@nestjs/mongoose';
 
 export class CreateCashbackDto {

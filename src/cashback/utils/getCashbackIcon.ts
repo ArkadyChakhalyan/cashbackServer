@@ -1,5 +1,7 @@
-import { ECashbackIcon } from 'cashback-check-types/cashback';
+import { ECashbackIcon } from 'cashback-check-types';
 import {
+    NAMES_ACCESSORIES,
+    NAMES_ANIMALS,
     NAMES_APPLIANCES,
     NAMES_ART, NAMES_BEAUTY,
     NAMES_BOOKS,
@@ -71,6 +73,10 @@ export function getCashbackIcon(
         return ECashbackIcon.HOME;
     } else if (isValid(name, NAMES_GROCERY)) {
         return ECashbackIcon.GROCERY;
+    } else if (isValid(name, NAMES_ANIMALS)) {
+        return ECashbackIcon.ANIMALS;
+    } else if (isValid(name, NAMES_ACCESSORIES)) {
+        return ECashbackIcon.ACCESSORIES;
     } else if (isValid(name, NAMES_COMMON)) {
         return ECashbackIcon.COMMON;
     } else {

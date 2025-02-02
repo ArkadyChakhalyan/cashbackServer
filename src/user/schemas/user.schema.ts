@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ECashbacksView } from 'cashback-check-types/user';
+import { ECashbacksView } from 'cashback-check-types';
 
 @Schema()
 export class User extends Document {

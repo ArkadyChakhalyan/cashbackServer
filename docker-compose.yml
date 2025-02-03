@@ -12,6 +12,7 @@ services:
       YANDEX_CLIENT_ID: ${YANDEX_CLIENT_ID}
       YANDEX_CLIENT_SECRET: ${YANDEX_CLIENT_SECRET}
       URL: ${URL}
+      CLIENT_URL: ${CLIENT_URL}
     depends_on:
       - mongodb
   mongodb:

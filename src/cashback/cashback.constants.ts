@@ -101,6 +101,7 @@ export const NAMES_MUSIC = [
 
 export const NAMES_APPLIANCES = [
     'техник',
+    'электрон',
 ];
 
 export const NAMES_BEAUTY = [

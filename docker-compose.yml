@@ -24,6 +24,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME:-root}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD:-password}
       - MONGO_INITDB_DATABASE=${DB_NAME:-cashback_database}
+    volumes:
+      - mongodb_data:/data/db
   mongo-express:
     image: mongo-express
     restart: always
@@ -35,3 +37,5 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${DB_PASSWORD:-password}
     depends_on:
       - mongodb
+    volumes:
+      - mongodb_data:/data/db

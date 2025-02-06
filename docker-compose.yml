@@ -37,5 +37,6 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${DB_PASSWORD:-password}
     depends_on:
       - mongodb
-    volumes:
-      - mongodb_data:/data/db
+
+volumes:
+  - mongodb_data:/data/db

@@ -55,8 +55,8 @@ export function getCashbackIcon(
         return ECashbackIcon.CLOTHES;
     } else if (isValid(name, NAMES_FURNITURE)) {
         return ECashbackIcon.FURNITURE;
-    } else if (isValid(name, NAMES_SPORT)) {
-        return ECashbackIcon.SPORT;
+    } else if (isValid(name, NAMES_TRANSPORT)) {
+        return ECashbackIcon.TRANSPORT;
     } else if (isValid(name, NAMES_MUSIC)) {
         return ECashbackIcon.MUSIC;
     } else if (isValid(name, NAMES_BEAUTY)) {
@@ -65,8 +65,8 @@ export function getCashbackIcon(
         return ECashbackIcon.KIDS;
     } else if (isValid(name, NAMES_APPLIANCES)) {
         return ECashbackIcon.APPLIANCES;
-    } else if (isValid(name, NAMES_TRANSPORT)) {
-        return ECashbackIcon.TRANSPORT;
+    } else if (isValid(name, NAMES_SPORT)) {
+        return ECashbackIcon.SPORT;
     } else if (isValid(name, NAMES_FLOWERS)) {
         return ECashbackIcon.FLOWERS;
     } else if (isValid(name, NAMES_HOME)) {

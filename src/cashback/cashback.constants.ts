@@ -78,6 +78,26 @@ export const NAMES_FLOWERS = [
     'цвет',
 ];
 
+export const NAMES_SMILE = [
+    'улыбк',
+];
+
+export const NAMES_MARKET = [
+    'маркет',
+    'озон',
+    'вайлдберис',
+    'wildberries',
+    'ozon',
+    'market',
+];
+
+export const NAMES_TRAVEL = [
+    'путешеств',
+    'авиа',
+    'ж/д',
+    'жд',
+];
+
 export const NAMES_HOME = [
     'дом',
     'ремонт',
@@ -93,6 +113,7 @@ export const NAMES_SPORT = [
 
 export const NAMES_TRANSPORT = [
     'транспорт',
+    'дороги',
 ];
 
 export const NAMES_MUSIC = [
@@ -114,6 +135,7 @@ export const NAMES_KIDS = [
 
 export const NAMES_ANIMALS = [
     'живот',
+    'питом',
 ];
 
 export const NAMES_ACCESSORIES = [
@@ -123,6 +145,7 @@ export const NAMES_ACCESSORIES = [
 export const BLUE_ICONS = [
     ECashbackIcon.GROCERY,
     ECashbackIcon.CARSHARING,
+    ECashbackIcon.SPORT,
 ];
 
 export const BROWN_ICONS = [
@@ -133,6 +156,7 @@ export const BROWN_ICONS = [
 export const PINK_ICONS = [
     ECashbackIcon.BEAUTY,
     ECashbackIcon.APPLIANCES,
+    ECashbackIcon.TRAVEL,
 ];
 
 export const RED_ICONS = [
@@ -153,18 +177,19 @@ export const YELLOW_ICONS = [
 export const GREEN_ICONS = [
     ECashbackIcon.PHARMACY,
     ECashbackIcon.HOME,
+    ECashbackIcon.ACCESSORIES,
 ];
 
 export const DARK_GREEN_ICONS = [
     ECashbackIcon.KIDS,
     ECashbackIcon.BOOKS,
-    ECashbackIcon.SPORT,
+    ECashbackIcon.SMILE,
 ];
 
 export const PURPLE_ICONS = [
     ECashbackIcon.FURNITURE,
     ECashbackIcon.GAS,
-    ECashbackIcon.ACCESSORIES,
+    ECashbackIcon.MARKET,
 ];
 
 export const DARK_PURPLE_ICONS = [

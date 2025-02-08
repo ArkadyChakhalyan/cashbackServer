@@ -15,13 +15,13 @@ import {
     NAMES_FURNITURE,
     NAMES_GAS,
     NAMES_GROCERY,
-    NAMES_HOME, NAMES_KIDS,
+    NAMES_HOME, NAMES_KIDS, NAMES_MARKET,
     NAMES_MUSIC,
     NAMES_PHARMACY,
-    NAMES_RESTAURANT,
+    NAMES_RESTAURANT, NAMES_SMILE,
     NAMES_SPORT,
     NAMES_TAXI,
-    NAMES_TRANSPORT,
+    NAMES_TRANSPORT, NAMES_TRAVEL,
     NAMES_UTILS
 } from '../cashback.constants';
 
@@ -69,6 +69,12 @@ export function getCashbackIcon(
         return ECashbackIcon.SPORT;
     } else if (isValid(name, NAMES_FLOWERS)) {
         return ECashbackIcon.FLOWERS;
+    } else if (isValid(name, NAMES_SMILE)) {
+        return ECashbackIcon.SMILE;
+    } else if (isValid(name, NAMES_MARKET)) {
+        return ECashbackIcon.MARKET;
+    } else if (isValid(name, NAMES_TRAVEL)) {
+        return ECashbackIcon.TRAVEL;
     } else if (isValid(name, NAMES_HOME)) {
         return ECashbackIcon.HOME;
     } else if (isValid(name, NAMES_GROCERY)) {

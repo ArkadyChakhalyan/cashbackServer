@@ -71,14 +71,14 @@ export function getCashbackIcon(
         return ECashbackIcon.FLOWERS;
     } else if (isValid(name, NAMES_SMILE)) {
         return ECashbackIcon.SMILE;
-    } else if (isValid(name, NAMES_MARKET)) {
-        return ECashbackIcon.MARKET;
     } else if (isValid(name, NAMES_TRAVEL)) {
         return ECashbackIcon.TRAVEL;
     } else if (isValid(name, NAMES_HOME)) {
         return ECashbackIcon.HOME;
     } else if (isValid(name, NAMES_GROCERY)) {
         return ECashbackIcon.GROCERY;
+    } else if (isValid(name, NAMES_MARKET)) {
+        return ECashbackIcon.MARKET;
     } else if (isValid(name, NAMES_ANIMALS)) {
         return ECashbackIcon.ANIMALS;
     } else if (isValid(name, NAMES_ACCESSORIES)) {

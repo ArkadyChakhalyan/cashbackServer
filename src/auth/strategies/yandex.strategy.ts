@@ -23,10 +23,11 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
         done: (error: string | null, user: any) => void,
     ): Promise<any> {
         const { displayName, emails, photos, id } = profile;
-        let user = await this.userService.findUserByEmail(emails[0].value);
+        const email = emails && emails[0].value || id;
+        let user = await this.userService.findUserByEmail(email);
         if (!user) {
             user = await this.userService.create({
-                email: emails && emails[0].value || id,
+                email,
                 name: displayName,
                 picture: photos[0].value,
             });

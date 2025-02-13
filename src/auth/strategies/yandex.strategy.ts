@@ -26,7 +26,7 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
         let user = await this.userService.findUserByEmail(emails[0].value);
         if (!user) {
             user = await this.userService.create({
-                email: emails[0].value || id,
+                email: emails && emails[0].value || id,
                 name: displayName,
                 picture: photos[0].value,
             });

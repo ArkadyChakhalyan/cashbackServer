@@ -4,7 +4,7 @@ import { ECashbacksView } from 'cashback-check-types';
 
 @Schema()
 export class User extends Document {
-    @Prop({ required: true })
+    @Prop({ required: false })
     email: string;
 
     @Prop({ required: true })

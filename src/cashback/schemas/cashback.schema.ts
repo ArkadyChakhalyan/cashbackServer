@@ -1,12 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { EBank, ECashbackColor } from 'cashback-check-types';
+import { EBank, ECashbackColor, ICard } from 'cashback-check-types';
 import { TUserId } from 'cashback-check-types';
 
 @Schema()
 export class Cashback extends Document {
     @Prop({ required: true })
     bank: EBank;
+
+    @Prop({ required: false, type: Object })
+    card: ICard;
 
     @Prop({ required: true })
     color: ECashbackColor;

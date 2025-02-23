@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cashback } from './schemas/cashback.schema';
 import { CreateCashbackDto } from './createCashbackDto';
-import { TUserId } from 'cashback-check-types';
+import { TCashbackId, TUserId } from 'cashback-check-types';
 import { getCashbackIcon } from './utils/getCashbackIcon';
 import { getCashbackColor } from './utils/getCashbackColor';
 
@@ -44,8 +44,15 @@ export class CashbackService {
         return this.cashbackModel.deleteMany( { userId }).exec();
     }
 
+    async findAllAndUpdate(
+        filter: Partial<CreateCashbackDto>,
+        updateCashbackDto: Partial<CreateCashbackDto>
+    ): Promise<any> {
+        return this.cashbackModel.updateMany(filter, updateCashbackDto).exec();
+    }
+
     async update(
-        id: string,
+        id: TCashbackId,
         updateCashbackDto: Partial<CreateCashbackDto>,
     ): Promise<Cashback> {
         const cashback = await this.cashbackModel.findById(id).exec();
@@ -64,7 +71,7 @@ export class CashbackService {
             .exec();
     }
 
-    async remove(id: TUserId): Promise<Cashback> {
+    async remove(id: TCashbackId): Promise<Cashback> {
         return this.cashbackModel.findByIdAndDelete(id).exec();
     }
 }

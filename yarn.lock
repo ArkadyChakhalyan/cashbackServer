@@ -1719,10 +1719,10 @@ caniuse-lite@^1.0.30001669:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001680.tgz#5380ede637a33b9f9f1fc6045ea99bd142f3da5e"
   integrity sha512-rPQy70G6AGUMnbwS1z6Xg+RkHYPAi18ihs47GH0jcxIG7wArmPgY3XbS2sRdBbxJljp3thdT8BIqv9ccCypiPA==
 
-cashback-check-types@^1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/cashback-check-types/-/cashback-check-types-1.0.12.tgz#4e91c2e01793c747cd5d50760fd483d196c49523"
-  integrity sha512-4QWcowprKLux9wN4bWJScKvoyJNTwPPJ/yTOSRWBBiH82fhjiWcvccSg+PqA8zoVCqPtm8NW8wbP/PmrtDzzBQ==
+cashback-check-types@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/cashback-check-types/-/cashback-check-types-1.0.17.tgz#4489d0cf4959397db8850efb9adff8abea2d83bf"
+  integrity sha512-PboUu/eyl0/GAQpag8lHf2bkWCJAszOxAOy6Gz4jV+dSix/zm/zZnvk45R5YpBMKVD/En4cFrGJF4BUNofMODw==
   dependencies:
     typescript "^5.7.2"
 

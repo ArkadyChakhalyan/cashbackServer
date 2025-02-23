@@ -10,11 +10,13 @@ export function getTransformedCashback(cashback: Cashback): ICashback {
         percentage,
         timestamp,
         color,
+        card,
         icon
     } = cashback;
     return {
         bank,
         bankOrderNumber,
+        card,
         color,
         icon,
         id: _id.toString(),

@@ -10,7 +10,7 @@ export function getTransformedCashback(cashback: Cashback): ICashback {
         percentage,
         timestamp,
         color,
-        card,
+        card = null,
         icon
     } = cashback;
     return {

@@ -30,7 +30,12 @@ export class CardService {
         updateCardDto: CreateCardDto,
     ): Promise<Card> {
         const result = await this.cardModel.findOneAndUpdate({ userId, name, bank }, updateCardDto, { new: true }).exec();
-        await this.cashbackService.findAllAndUpdate({ userId, card: { name, bank }}, { card: updateCardDto });
+        const filter = {
+            userId,
+            'card.name': name,
+            'card.bank': bank,
+        };
+        await this.cashbackService.findAllAndUpdate(filter, { card: updateCardDto });
         return result;
     }
 
@@ -40,7 +45,12 @@ export class CardService {
         bank: EBank,
     ): Promise<Card> {
         const result = this.cardModel.findOneAndDelete({ userId, name, bank }).exec();
-        await this.cashbackService.findAllAndUpdate({ userId, card: { name, bank } }, { card: null });
+        const filter = {
+            userId,
+            'card.name': name,
+            'card.bank': bank,
+        };
+        await this.cashbackService.findAllAndUpdate(filter, { card: null });
         return result;
     }
 }

@@ -20,6 +20,9 @@ export class Cashback extends Document {
     @Prop({ required: true })
     name: string;
 
+    @Prop({ required: false })
+    limitless: boolean;
+
     @Prop({ required: true })
     orderNumber: number;
 

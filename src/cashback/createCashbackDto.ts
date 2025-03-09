@@ -22,6 +22,7 @@ export class CreateCashbackDto {
     readonly name: string;
 
     @IsNumber()
+    @Prop({ required: true })
     readonly percentage: number;
 
     @IsNumber()

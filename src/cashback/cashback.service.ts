@@ -3,9 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cashback } from './schemas/cashback.schema';
 import { CreateCashbackDto } from './createCashbackDto';
-import { TCashbackId, TUserId } from 'cashback-check-types';
+import { ICashback, TCashbackId, TUserId } from 'cashback-check-types';
 import { getCashbackIcon } from './utils/getCashbackIcon';
 import { getCashbackColor } from './utils/getCashbackColor';
+import { getCashbackNextMonth } from './utils/getCashbackNextMonth';
+import { getIsCashbackExpired } from './utils/getIsCashbackExpired';
+import { getCashbackBankOrderNumber } from './utils/getCashbackBankOrderNumber';
 
 @Injectable()
 export class CashbackService {
@@ -24,20 +27,99 @@ export class CashbackService {
         return createdCashback.save();
     }
 
-    async findAll(userId: TUserId): Promise<Cashback[]> {
+    async removeOldCashbacks(userId: TUserId) {
         const cashbacks = await this.cashbackModel.find({ userId }).exec();
-        return cashbacks.reduce((cashbacks, cashback) => {
-            const currentMonthDate = new Date();
-            const nextMonthDate = new Date();
-            nextMonthDate.setMonth(currentMonthDate.getMonth() + 1);
-            const cashbackMonth = new Date(cashback.timestamp).getMonth();
-            if ([cashbackMonth, nextMonthDate].includes(cashbackMonth)) {
-                cashbacks.push(cashback);
-            } else {
-                this.remove(cashback.id);
+        cashbacks.forEach(async (cashback) => {
+            if (getIsCashbackExpired(cashback.timestamp)) {
+                await this.remove(cashback.id);
             }
-            return cashbacks;
-        }, []);
+        });
+    }
+
+    async addTimelessCashbacks(userId: TUserId) {
+        let cashbacks: Array<Cashback | ICashback> = await this.cashbackModel.find({ userId }).exec();
+        cashbacks.forEach(async (cashback) => {
+            if (!cashback.limitless) return;
+
+            const currentCashbacks = cashbacks.filter(item => {
+                return item.name === cashback.name &&
+                    item.bank === cashback.bank &&
+                    item?.card?.name === cashback?.card?.name;
+            });
+
+            let isCurrentMonth = false;
+            let isNextMonth = false;
+            for (let i = 0; i < currentCashbacks.length; i++) {
+                const timestamp = currentCashbacks[i].timestamp;
+                if (getIsCashbackExpired(timestamp)) return;
+
+                const cashbackMonth = new Date(timestamp).getMonth();
+                const nextMonth = getCashbackNextMonth();
+                const currentMonth = new Date().getMonth();
+
+                if (cashbackMonth === currentMonth) {
+                    isCurrentMonth = true;
+                } else if (cashbackMonth === nextMonth) {
+                    isNextMonth = true;
+                }
+
+                if (isCurrentMonth && isNextMonth) {
+                    break;
+                }
+            }
+
+            if (!isCurrentMonth) {
+                const currentMonthCashbacks = cashbacks.filter(cashback => {
+                    const timestamp = cashback.timestamp;
+                    const cashbackMonth = new Date(timestamp).getMonth();
+                    const currentMonth = new Date().getMonth();
+                    return getIsCashbackExpired(timestamp) && cashbackMonth === currentMonth;
+                });
+                const newCashback = await this.create({
+                    userId,
+                    card: cashback.card,
+                    bank: cashback.bank,
+                    icon: cashback.icon,
+                    color: cashback.color,
+                    name: cashback.name,
+                    percentage: cashback.percentage,
+                    orderNumber: currentMonthCashbacks.length,
+                    bankOrderNumber: getCashbackBankOrderNumber(currentMonthCashbacks as Cashback[], cashback.bank),
+                    timestamp: Date.now(),
+                });
+                cashbacks.push(newCashback);
+            }
+
+            if (!isNextMonth) {
+                const nextMonthCashbacks = cashbacks.filter(cashback => {
+                    const timestamp = cashback.timestamp;
+                    const cashbackMonth = new Date(timestamp).getMonth();
+                    const nextMonth = getCashbackNextMonth();
+                    return getIsCashbackExpired(timestamp) && cashbackMonth === nextMonth;
+                });
+                const date = new Date();
+                date.setMonth(date.getMonth() + 1);
+                const newCashback = await this.create({
+                    userId,
+                    card: cashback.card,
+                    bank: cashback.bank,
+                    icon: cashback.icon,
+                    color: cashback.color,
+                    name: cashback.name,
+                    percentage: cashback.percentage,
+                    orderNumber: nextMonthCashbacks.length,
+                    bankOrderNumber: getCashbackBankOrderNumber(nextMonthCashbacks as Cashback[], cashback.bank),
+                    timestamp: date.getTime(),
+                });
+                cashbacks.push(newCashback);
+            }
+        });
+    }
+
+    async findAll(userId: TUserId): Promise<Cashback[]> {
+        await this.addTimelessCashbacks(userId);
+        await this.removeOldCashbacks(userId);
+        return await this.cashbackModel.find({ userId }).exec();
     }
 
     async findAllAndDelete(userId: TUserId): Promise<any> {

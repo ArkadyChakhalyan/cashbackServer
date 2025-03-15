@@ -5,12 +5,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserDto } from './updateUserDto';
 import { CashbackService } from '../cashback/cashback.service';
 import { TUserId } from 'cashback-check-types';
+import { CardService } from '../card/card.service';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectModel(User.name) private userModel: Model<User>,
         private readonly cashbackService: CashbackService,
+        private readonly cardService: CardService,
     ) {}
 
     async findById(id: TUserId): Promise<User> {
@@ -34,6 +36,7 @@ export class UserService {
 
     async delete(userId: TUserId): Promise<User> {
         await this.cashbackService.findAllAndDelete(userId);
+        await this.cardService.findAllAndDelete(userId);
         return this.userModel.findByIdAndDelete(userId).exec();
     }
 }

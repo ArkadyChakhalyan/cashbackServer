@@ -23,6 +23,10 @@ export class CardService {
         return await this.cardModel.find({ userId }).exec();
     }
 
+    async findAllAndDelete(userId: TUserId): Promise<any> {
+        return this.cardModel.deleteMany( { userId }).exec();
+    }
+
     async update(
         userId: TUserId,
         name: string,

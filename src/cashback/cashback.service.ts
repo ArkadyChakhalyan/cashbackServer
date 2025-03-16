@@ -41,9 +41,15 @@ export class CashbackService {
         cashbacks.forEach(async (cashback) => {
             if (!cashback.limitless) return;
 
+            const { timestamp } = cashback;
+            const currentMonth = new Date().getMonth();
+            const cashbackMonth = new Date(timestamp).getMonth();
+            if (!getIsCashbackExpired(timestamp) && cashbackMonth > currentMonth) return;
+
             const currentCashbacks = cashbacks.filter(item => {
                 return item.name === cashback.name &&
                     item.bank === cashback.bank &&
+                    item.percentage === cashback.percentage &&
                     item?.card?.name === cashback?.card?.name;
             });
 

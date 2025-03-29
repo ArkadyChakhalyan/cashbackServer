@@ -3,12 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cashback } from './schemas/cashback.schema';
 import { CreateCashbackDto } from './createCashbackDto';
-import { ICashback, TCashbackId, TUserId } from 'cashback-check-types';
+import { TCashbackId, TUserId } from 'cashback-check-types';
 import { getCashbackIcon } from './utils/getCashbackIcon';
 import { getCashbackColor } from './utils/getCashbackColor';
 import { getCashbackNextMonth } from './utils/getCashbackNextMonth';
 import { getIsCashbackExpired } from './utils/getIsCashbackExpired';
 import { getCashbackBankOrderNumber } from './utils/getCashbackBankOrderNumber';
+import { getCashbackCardOrderNumber } from './utils/getCashbackCardOrderNumber';
 
 @Injectable()
 export class CashbackService {
@@ -28,17 +29,53 @@ export class CashbackService {
     }
 
     async removeOldCashbacks(userId: TUserId) {
-        const cashbacks = await this.cashbackModel.find({ userId }).exec();
-        cashbacks.forEach(async (cashback) => {
+        const cashbacks = await this.cashbackModel
+            .find({ userId })
+            .exec();
+        for (const cashback of cashbacks) {
             if (getIsCashbackExpired(cashback.timestamp)) {
                 await this.remove(cashback.id);
             }
-        });
+        }
+    }
+
+    async addCardOrderNumberIfNeeded(userId: TUserId) {
+        const cashbacks  = await this.cashbackModel
+            .find({ userId })
+            .lean()
+            .exec();
+        for (const cashback of cashbacks) {
+            if (Number.isFinite(cashback.cardOrderNumber)) return;
+            const periodCashbacks = [];
+            const cashbackDate = new Date(cashback.timestamp);
+            cashbacks.forEach(item => {
+                const itemDate = new Date(item.timestamp);
+                if (
+                    cashback._id !== item._id &&
+                    itemDate.getFullYear() === cashbackDate.getFullYear() &&
+                    itemDate.getMonth() === cashbackDate.getMonth()
+                ) {
+                    periodCashbacks.push(item);
+                }
+            });
+            const cardOrderNumber = getCashbackCardOrderNumber(periodCashbacks, cashback.card, cashback.bank);
+            const index = cashbacks.findIndex(item => item._id.toString() === cashback._id.toString());
+            if (index !== -1) {
+                cashbacks[index] = {
+                    ...cashback,
+                    cardOrderNumber,
+                };
+            }
+            await this.update(cashback._id.toString(), { cardOrderNumber });
+        }
     }
 
     async addTimelessCashbacks(userId: TUserId) {
-        let cashbacks: Array<Cashback | ICashback> = await this.cashbackModel.find({ userId }).exec();
-        cashbacks.forEach(async (cashback) => {
+        const cashbacks = await this.cashbackModel
+            .find({ userId })
+            .lean()
+            .exec();
+        for (const cashback of cashbacks) {
             if (!cashback.limitless) return;
 
             const currentCashbacks = cashbacks.filter(item => {
@@ -85,9 +122,10 @@ export class CashbackService {
                     percentage: cashback.percentage,
                     orderNumber: currentMonthCashbacks.length,
                     bankOrderNumber: getCashbackBankOrderNumber(currentMonthCashbacks as Cashback[], cashback.bank),
+                    cardOrderNumber: getCashbackCardOrderNumber(currentMonthCashbacks as Cashback[], cashback.card, cashback.bank),
                     timestamp: Date.now(),
                 });
-                cashbacks.push(newCashback);
+                cashbacks.push(newCashback as any);
             }
 
             if (!isNextMonth) {
@@ -109,14 +147,16 @@ export class CashbackService {
                     percentage: cashback.percentage,
                     orderNumber: nextMonthCashbacks.length,
                     bankOrderNumber: getCashbackBankOrderNumber(nextMonthCashbacks as Cashback[], cashback.bank),
+                    cardOrderNumber: getCashbackCardOrderNumber(nextMonthCashbacks as Cashback[], cashback.card, cashback.bank),
                     timestamp: date.getTime(),
                 });
-                cashbacks.push(newCashback);
+                cashbacks.push(newCashback as any);
             }
-        });
+        }
     }
 
     async findAll(userId: TUserId): Promise<Cashback[]> {
+        await this.addCardOrderNumberIfNeeded(userId);
         await this.addTimelessCashbacks(userId);
         await this.removeOldCashbacks(userId);
         return await this.cashbackModel.find({ userId }).exec();

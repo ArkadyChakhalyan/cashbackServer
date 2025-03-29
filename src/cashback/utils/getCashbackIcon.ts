@@ -26,7 +26,7 @@ import {
 } from '../cashback.constants';
 
 export function getCashbackIcon(
-    name: string,
+    name: string = '',
 ): ECashbackIcon {
     name = name.toLowerCase();
     if (isValid(name, NAMES_ART)) {

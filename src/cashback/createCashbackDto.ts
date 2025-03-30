@@ -11,6 +11,10 @@ export class CreateCashbackDto {
     @IsString()
     readonly card: ICard;
 
+    @IsNumber()
+    @Prop({ required: true })
+    cardOrderNumber: number;
+
     @IsString()
     readonly color: ECashbackColor;
 

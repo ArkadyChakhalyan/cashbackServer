@@ -21,8 +21,8 @@ export const getCashbackCardOrderNumber = (
         const nextCashback = sortedCashbacks.find(cashback => {
             return (
                 !cashback.card ||
-                cashback.card.bank !== card.bank ||
-                cashback.card.name !== card.name
+                cashback.card?.bank !== card?.bank ||
+                cashback.card?.name !== card?.name
             ) && (
                 !Number.isFinite(lastCardCashback.cardOrderNumber) ||
                 cashback.cardOrderNumber > lastCardCashback.cardOrderNumber

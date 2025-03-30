@@ -45,7 +45,7 @@ export class CashbackService {
             .lean()
             .exec();
         for (const cashback of cashbacks) {
-            if (Number.isFinite(cashback.cardOrderNumber)) return;
+            if (Number.isFinite(cashback.cardOrderNumber)) continue;
             const periodCashbacks = [];
             const cashbackDate = new Date(cashback.timestamp);
             cashbacks.forEach(item => {
@@ -75,8 +75,9 @@ export class CashbackService {
             .find({ userId })
             .lean()
             .exec();
+
         for (const cashback of cashbacks) {
-            if (!cashback.limitless) return;
+            if (!cashback.limitless) continue;
 
             const currentCashbacks = cashbacks.filter(item => {
                 return item.name === cashback.name &&

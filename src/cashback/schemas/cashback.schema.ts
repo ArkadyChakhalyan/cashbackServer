@@ -12,6 +12,9 @@ export class Cashback extends Document {
     card: ICard;
 
     @Prop({ required: true })
+    cardOrderNumber: number;
+
+    @Prop({ required: true })
     color: ECashbackColor;
 
     @Prop({ required: true })

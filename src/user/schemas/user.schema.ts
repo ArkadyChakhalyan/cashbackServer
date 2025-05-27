@@ -15,6 +15,9 @@ export class User extends Document {
 
     @Prop({ required: false })
     cashbacksView: ECashbacksView;
+
+    @Prop({ required: false })
+    seenStories: number[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

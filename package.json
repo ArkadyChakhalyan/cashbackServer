@@ -27,7 +27,7 @@
     "@nestjs/mongoose": "^10.1.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
-    "cashback-check-types": "^1.0.22",
+    "cashback-check-types": "^1.0.23",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "mongoose": "^8.8.1",

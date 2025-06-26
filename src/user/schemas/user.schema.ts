@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ECashbacksView } from 'cashback-check-types';
+import { ECashbacksView, ISettings } from 'cashback-check-types';
 
 @Schema()
 export class User extends Document {
@@ -18,6 +18,9 @@ export class User extends Document {
 
     @Prop({ required: false })
     seenStories: number[];
+
+    @Prop({ required: false })
+    settings: ISettings;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -14,13 +14,13 @@ export class User extends Document {
     picture: string;
 
     @Prop({ required: false })
-    cashbacksView: ECashbacksView;
+    cashbacksView?: ECashbacksView;
 
     @Prop({ required: false })
-    seenStories: number[];
+    seenStories?: number[];
 
     @Prop({ required: false })
-    settings: ISettings;
+    settings?: ISettings;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

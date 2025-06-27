@@ -19,7 +19,7 @@ export class User extends Document {
     @Prop({ required: false })
     seenStories?: number[];
 
-    @Prop({ required: false })
+    @Prop({ type: Object, required: false })
     settings?: ISettings;
 }
 

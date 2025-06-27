@@ -1,5 +1,6 @@
-import { IsArray, IsObject, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsObject, IsString, ValidateNested } from 'class-validator';
 import { ECashbacksView, ISettings } from 'cashback-check-types';
+import { Type } from 'class-transformer';
 
 export class UpdateUserDto {
     @IsString()
@@ -8,6 +9,12 @@ export class UpdateUserDto {
     @IsArray()
     readonly seenStories?: number[];
 
-    @IsObject()
+    @ValidateNested()
+    @Type(() => SettingsDto)
     readonly settings?: ISettings;
+}
+
+export class SettingsDto {
+    @IsBoolean()
+    isHideStories?: string;
 }

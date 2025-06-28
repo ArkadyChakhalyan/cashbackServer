@@ -17,4 +17,7 @@ export class UpdateUserDto {
 export class SettingsDto {
     @IsBoolean()
     isHideStories?: string;
+
+    @IsBoolean()
+    isHideAddCard?: string;
 }

@@ -6,7 +6,6 @@ import { CreateCashbackDto } from './createCashbackDto';
 import { TCashbackId, TUserId } from 'cashback-check-types';
 import { getCashbackIcon } from './utils/getCashbackIcon';
 import { getCashbackColor } from './utils/getCashbackColor';
-import { getIsCashbackExpired } from './utils/getIsCashbackExpired';
 
 @Injectable()
 export class CashbackService {
@@ -25,19 +24,14 @@ export class CashbackService {
         return createdCashback.save();
     }
 
-    async removeOldCashbacks(userId: TUserId) {
-        const cashbacks = await this.cashbackModel
-            .find({ userId })
-            .exec();
-        for (const cashback of cashbacks) {
-            if (getIsCashbackExpired(cashback.timestamp)) {
-                await this.remove(cashback.id);
-            }
-        }
-    }
-
     async findAll(userId: TUserId): Promise<Cashback[]> {
-        await this.removeOldCashbacks(userId);
+        const currentMonthStart = new Date();
+        currentMonthStart.setDate(1);
+        currentMonthStart.setHours(0, 0, 0, 0);
+        await this.cashbackModel.deleteMany({
+            userId,
+            timestamp: { $lt: currentMonthStart.getTime() },
+        }).exec();
         return await this.cashbackModel.find({ userId }).exec();
     }
 

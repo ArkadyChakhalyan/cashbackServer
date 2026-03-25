@@ -43,7 +43,7 @@ export class CardService {
         name: string,
         bank: EBank,
     ): Promise<Card> {
-        const result = this.cardModel.findOneAndDelete({ userId, name, bank }).exec();
+        const result = await this.cardModel.findOneAndDelete({ userId, name, bank }).exec();
         await this.cashbackService.findAllAndUpdate({ userId, card: { name, bank } }, { card: null });
         return result;
     }

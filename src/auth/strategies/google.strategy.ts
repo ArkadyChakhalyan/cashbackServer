@@ -30,7 +30,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
                 name: displayName,
                 picture: photos[0].value,
             });
-            await user.save();
         }
 
         return done(null, user);

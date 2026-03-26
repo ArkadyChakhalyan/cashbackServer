@@ -31,7 +31,6 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
                 name: displayName,
                 picture: photos[0].value,
             });
-            await user.save();
         }
 
         return done(null, user);

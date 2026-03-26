@@ -1,18 +1,15 @@
-import { IsNumber, IsString } from 'class-validator';
-import { EBank, ECashbackColor, ICard } from 'cashback-check-types';
-import { TUserId } from 'cashback-check-types';
-import { Prop } from '@nestjs/mongoose';
+import { IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
+import { EBank, ECashbackColor, ICard, TUserId } from 'cashback-check-types';
 
 export class CreateCashbackDto {
     @IsString()
-    @Prop({ required: true })
     readonly bank: EBank;
 
-    @IsString()
+    @IsOptional()
+    @IsObject()
     readonly card: ICard;
 
     @IsNumber()
-    @Prop({ required: true })
     cardOrderNumber: number;
 
     @IsString()
@@ -22,23 +19,18 @@ export class CreateCashbackDto {
     readonly icon: string;
 
     @IsString()
-    @Prop({ required: true })
     readonly name: string;
 
     @IsNumber()
-    @Prop({ required: true })
     readonly percentage: number;
 
     @IsNumber()
-    @Prop({ required: true })
     orderNumber: number;
 
     @IsNumber()
-    @Prop({ required: true })
     bankOrderNumber: number;
 
     @IsNumber()
-    @Prop({ required: true })
     readonly timestamp: number;
 
     @IsString()

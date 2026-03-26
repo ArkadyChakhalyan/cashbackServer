@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 import { GoogleAuthGuard } from './guards/google.guard';
 import { User } from '../user/schemas/user.schema';
 import { YandexAuthGuard } from './guards/yandex.guard';
-import passport from 'passport';
 
 @Controller('auth')
 export class AuthController {

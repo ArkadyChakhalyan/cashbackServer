@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { User } from '../user/schemas/user.schema';
@@ -7,6 +8,7 @@ import { User } from '../user/schemas/user.schema';
 export class AuthService {
     constructor(
         private jwtService: JwtService,
+        private configService: ConfigService,
     ) {}
 
     async login(
@@ -18,9 +20,10 @@ export class AuthService {
                 throw new Error('Authentication failed');
             }
             const jwtToken = this.jwtService.sign({ userId: user._id });
+            const clientUrl = this.configService.get<string>('CLIENT_URL');
             const script = `
                 <script>
-                    window.opener.postMessage({ token: '${jwtToken}' }, '*');
+                    window.opener.postMessage({ token: '${jwtToken}' }, '${clientUrl}');
                     window.close();
                 </script>
             `;

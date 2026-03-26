@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Put, Req, Res, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Put, Req, UnauthorizedException, UseGuards } from '@nestjs/common'
 import { UserService } from './user.service'
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { getTransformedUser } from './utils/getTransformedUser';
 import { UpdateUserDto } from './updateUserDto';
 
@@ -11,29 +11,28 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Get('me')
-    async getProfile(@Req() req: Request, @Res() res: Response) {
+    async getProfile(@Req() req: Request) {
         //@ts-ignore
         const userId = req.user?.userId;
         if (!userId) {
-            return { error: 'Not authenticated' };
+            throw new UnauthorizedException();
         }
         const user = await this.userService.findById(userId);
-        return res.json(getTransformedUser(user));
+        return getTransformedUser(user);
     }
 
     @Put('me')
     async updateProfile(
         @Req() req: Request,
-        @Res() res: Response,
-        @Body() updateUserDto: Partial<UpdateUserDto>,
+        @Body() updateUserDto: UpdateUserDto,
     ) {
         //@ts-ignore
         const userId = req.user?.userId;
         if (!userId) {
-            return { error: 'Not authenticated' };
+            throw new UnauthorizedException();
         }
         const user = await this.userService.update(userId, updateUserDto);
-        return res.json(getTransformedUser(user));
+        return getTransformedUser(user);
     }
 
     @Delete('me')
@@ -41,7 +40,7 @@ export class UserController {
         //@ts-ignore
         const userId = req.user?.userId;
         if (!userId) {
-            return { error: 'Not authenticated' };
+            throw new UnauthorizedException();
         }
         return await this.userService.delete(userId);
     }

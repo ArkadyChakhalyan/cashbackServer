@@ -174,6 +174,10 @@ describe('getCashbackIcon', () => {
         expect(getCashbackIcon('wildberries')).toBe(ECashbackIcon.MARKET);
     });
 
+    it('returns MARKET for "Вайлдберриз"', () => {
+        expect(getCashbackIcon('Вайлдберриз')).toBe(ECashbackIcon.MARKET);
+    });
+
     it('returns ANIMALS for "животные"', () => {
         expect(getCashbackIcon('животные')).toBe(ECashbackIcon.ANIMALS);
     });
